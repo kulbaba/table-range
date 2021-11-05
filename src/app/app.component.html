@@ -1,0 +1,38 @@
+<div class="content">
+  <div class="header">
+    <h1>Time Interval Data</h1>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Time Interval</mat-label>
+
+      <mat-select (valueChange)="renderColumns($event)" [(value)]="selectedRange" placeholder="1 hour">
+        <mat-option *ngFor="let interval of intervals" [value]="interval.value">
+          {{interval.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-sidenav-container>
+    <mat-sidenav-content>
+      <div class="mat-elevation-z8 m-12">
+        <div class="table-container">
+          <table mat-table [dataSource]="shownRecords" class="mat-elevation-z8">
+            <ng-container class="table" *ngFor="let column of columnHeader; let colIndex = index"
+                          matColumnDef="{{column}}">
+              <th class="table-column-100 column-header" [ngClass]="column" mat-header-cell
+                  *matHeaderCellDef> {{column}}</th>
+              <td class="table-column-100" [ngClass]="column" mat-cell
+                  *matCellDef="let element"> {{element[column]}} </td>
+            </ng-container>
+
+            <tr class="row-header" mat-header-row *matHeaderRowDef="columnHeader; sticky: true"></tr>
+
+            <tr mat-row *matRowDef="let row; columns: columnHeader;"></tr>
+          </table>
+          <div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
